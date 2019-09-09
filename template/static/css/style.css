@@ -1,0 +1,53 @@
+body {
+    padding: 10px;
+    font-size: 16px;
+}
+
+h1 {font-size: 24px;}
+h2 {font-size: 22px;}
+h3 {font-size: 20px;}
+h4 {font-size: 18px;}
+h5 {font-size: 16px;}
+h6 {font-size: 14px;}
+
+.title, .title a {
+    font-size: 18px;
+    margin-top: 26px;
+    font-weight: 700;
+    color: #a00;
+    text-decoration: none;
+}
+
+.post-title {
+    margin: 18px 0 16px 0;
+    font-weight: 700;
+}
+
+time {
+    display: block;
+    color: gray;
+    margin-bottom: 16px;
+}
+
+.post {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    line-height: 1.75em;
+}
+
+.post-content p {
+    margin: 10px auto;
+}
+
+.post-content img {
+    width:100%;
+    height:auto;
+    border-radius: 4px;
+}
+
+.post a,
+.post-content a {
+    text-decoration: underline;
+    color: #00a;
+}

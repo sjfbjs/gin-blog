@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ .title }}</title>
+    <meta name="keywords" content="{{ .keyword }}"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            <header>
+                <div class="title">
+                    <a href="/">{{ .title }}</a>
+                </div>
+            </header>
+            <main>
+                <div class="post-title">Blog Posts</div>
+                <ul class="post">
+                    {{ range .articles }}
+                        <li><span>{{ .Created | formatAsDate }}</span> » <a href="/post/{{ if .Alias }}{{ .Alias }}{{ else }}{{ .Id }}{{ end }}">{{ .Title }}</a>
+                        </li>
+                    {{ end }}
+                </ul>
+            </main>
+            <footer>
+                <hr/>
+            </footer>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

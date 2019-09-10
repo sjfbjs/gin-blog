@@ -13,21 +13,23 @@ type Article struct {
 	Created uint   `db:"created"`
 }
 
-func (_ *Article) SelectAll() []Article {
+func (_ *Article) SelectAll() *[]Article {
 	articles := []Article{}
 	err := DB.Select(&articles, "SELECT * FROM `article`")
 	if nil != err {
-		log.Fatal("get archives failed: " + err.Error())
+		log.Println("get archives failed: " + err.Error())
+		return nil
 	}
-	return articles
+	return &articles
 }
 
-func (_ *Article) SelectBySlugOrId(slugOrId string) Article {
+func (_ *Article) SelectBySlugOrId(slugOrId string) *Article {
 	article := Article{}
 	id, _ := strconv.Atoi(slugOrId)
 	err := DB.Get(&article, "SELECT * FROM `article` WHERE alias = ? OR id = ?", slugOrId, id)
 	if nil != err {
-		log.Fatal("get archive failed: " + err.Error())
+		log.Println("get archive failed: " + err.Error())
+		return nil
 	}
-	return article
+	return &article
 }

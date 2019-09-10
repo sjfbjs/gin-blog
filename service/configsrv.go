@@ -6,7 +6,7 @@ type configService struct {
 }
 
 var Config = &configService{}
-var configDAO model.Config
+var configDAO = &model.Config{}
 
 func (_ *configService) GetTitle() string {
 	return configDAO.SelectTitle()

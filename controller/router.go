@@ -22,6 +22,8 @@ func MapRoutes() *gin.Engine {
 
 	router.GET("/", index)
 	router.GET("/post/:slug", post)
+	router.GET("/login", login)
+	router.POST("/login", loginAPI)
 
 	return router
 }

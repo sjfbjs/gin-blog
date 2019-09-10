@@ -1,5 +1,7 @@
 package model
 
+import "log"
+
 type Config struct {
 	Id    uint   `db:"id"`
 	Name  string `db:"name"`
@@ -8,12 +10,20 @@ type Config struct {
 
 func (_ *Config) SelectTitle() string {
 	title := Config{}
-	DB.Get(&title, "SELECT * FROM `config` WHERE name = ?", "title")
+	err := DB.Get(&title, "SELECT * FROM `config` WHERE name = ?", "title")
+	if nil != err {
+		log.Println("get title failed: " + err.Error())
+		return ""
+	}
 	return title.Value
 }
 
 func (_ *Config) SelectKeyword() string {
 	keyword := Config{}
-	DB.Get(&keyword, "SELECT * FROM `config` WHERE name = ?", "keywords")
+	err := DB.Get(&keyword, "SELECT * FROM `config` WHERE name = ?", "keywords")
+	if nil != err {
+		log.Println("get keyword failed: " + err.Error())
+		return ""
+	}
 	return keyword.Value
 }

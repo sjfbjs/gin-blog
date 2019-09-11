@@ -30,6 +30,7 @@ func MapRoutes() *gin.Engine {
 	router.GET("/post/:slug", post)
 	router.GET("/login", login)
 	router.POST("/login", loginAPI)
+	router.GET("/logout", logout)
 
 	admin := router.Group("/admin", func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -41,6 +42,10 @@ func MapRoutes() *gin.Engine {
 	})
 	{
 		admin.GET("/", dashboard)
+		admin.GET("/edit", editArticle)
+		admin.POST("/article", addArticle)
+		admin.DELETE("/article", deleteArticle)
+		admin.GET("/article", articleManage)
 	}
 
 	return router

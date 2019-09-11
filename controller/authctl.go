@@ -31,3 +31,10 @@ func loginAPI(c *gin.Context) {
 		})
 	}
 }
+
+func logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+	c.String(http.StatusOK, "退出登录成功!")
+}

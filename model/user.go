@@ -12,7 +12,7 @@ func (_ *User) Auth(username, password string) *User {
 	user := User{}
 	err := DB.Get(&user, "SELECT * FROM `user` WHERE username = ? and password = ?", username, password)
 	if nil != err {
-		log.Println("auth user failed: " + err.Error())
+		log.Println("auth user failed: ", err.Error())
 		return nil
 	}
 	return &user

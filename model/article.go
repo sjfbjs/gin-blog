@@ -17,7 +17,7 @@ func (_ *Article) SelectAll() *[]Article {
 	articles := []Article{}
 	err := DB.Select(&articles, "SELECT * FROM `article`")
 	if nil != err {
-		log.Println("get archives failed: " + err.Error())
+		log.Println("get archives failed: ", err.Error())
 		return nil
 	}
 	return &articles
@@ -28,7 +28,7 @@ func (_ *Article) SelectBySlugOrId(slugOrId string) *Article {
 	id, _ := strconv.Atoi(slugOrId)
 	err := DB.Get(&article, "SELECT * FROM `article` WHERE alias = ? OR id = ?", slugOrId, id)
 	if nil != err {
-		log.Println("get archive failed: " + err.Error())
+		log.Println("get archive failed: ", err.Error())
 		return nil
 	}
 	return &article

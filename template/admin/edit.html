@@ -1,0 +1,158 @@
+{{ $null := "null" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>编辑文章 - 后台管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/admin-lte/2.4.10/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/admin-lte/2.4.10/css/skins/skin-blue.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.css">
+    <link rel="stylesheet" href="../../static/admin/css/style.css">
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header class="main-header">
+
+        <a href="/admin" class="logo">
+            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown user user-menu">
+                        <a href="/" target="_blank" class="dropdown-toggle"><i class="fa fa-eye"></i>预览站点</a>
+                    </li>
+
+                    <li class="dropdown user user-menu">
+                        <a href="/logout" class="dropdown-toggle"><i class="fa fa-sign-out"></i>注销</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+
+        <section class="sidebar">
+
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a href="/admin"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
+                </li>
+                <li class="active">
+                    <a href="/admin/edit"><i class="fa fa-pencil-square-o"></i><span>编辑文章</span></a>
+                </li>
+                <li>
+                    <a href="/admin/article"><i class="fa fa-list"></i><span>文章管理</span></a>
+                </li>
+                <li>
+                    <a href="/admin/setting"><i class="fa fa-gear"></i><span>系统设置</span></a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <section class="content container-fluid">
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>编辑文章</b></h3>
+                </div>
+
+                <form method="post" id="loginForm" onsubmit="return checkForm()">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">标题</span>
+                                    <input type="text" class="form-control" name="title" placeholder="请输入文章标题（必须）">
+                                </div>
+                                <br/>
+                                <div class="input-group">
+                                    <span class="input-group-addon">路径</span>
+                                    <input type="text" class="form-control" name="alias"
+                                           placeholder="自定义访问路径，如：my-first-article  默认为文章id">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="editor">
+                            <textarea id="markdown" name="content"></textarea>
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right">提交</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2019</strong>
+    </footer>
+
+    <div class="control-sidebar-bg"></div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/admin-lte/2.4.10/js/adminlte.min.js"></script>
+
+<script src="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.js"></script>
+<script>
+    var simplemde
+    $(function () {
+        simplemde = new SimpleMDE({
+            element: $('#markdown')[0],
+            spellChecker: false,
+            status: false
+        })
+        $('input[name="title"]').val('{{.title}}')
+        $('input[name="alias"]').val('{{.alias}}')
+        simplemde.value('{{.content}}')
+    })
+
+    function checkForm() {
+        $.post({
+            url: '/admin/article',
+            data: {
+                id: {{if .id}}{{.id}}{{else}}{{.null}}{{end}},
+                title: $('input[name="title"]').val(),
+                alias: $('input[name="alias"]').val(),
+                content: simplemde.value()
+            },
+            success: function (result) {
+                if (result && result.success) {
+                    alert('文章发布成功')
+                } else {
+                    alert(result.msg)
+                }
+            }
+        })
+        return false
+    }
+</script>
+
+</body>
+
+</html>

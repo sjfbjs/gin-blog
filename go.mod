@@ -3,8 +3,10 @@ module gin-blog
 go 1.12
 
 require (
-	github.com/gin-contrib/multitemplate v0.0.0-20190528082104-30e424939505
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/gin-contrib/sessions v0.0.1
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/jmoiron/sqlx v1.2.0
+	google.golang.org/appengine v1.6.2 // indirect
 )

@@ -1,0 +1,4 @@
+*.css linguist-language=go
+*.html linguist-language=go
+*.go linguist-language=go
+*.sql linguist-language=sql

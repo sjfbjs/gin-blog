@@ -1,16 +1,17 @@
 package model
 
 import (
+	"database/sql"
 	"log"
 	"strconv"
 )
 
 type Article struct {
-	Id      uint   `db:"id"`
-	Title   string `db:"title"`
-	Content string `db:"content"`
-	Alias   string `db:"alias"`
-	Created uint   `db:"created"`
+	Id      uint           `db:"id"`
+	Title   string         `db:"title"`
+	Content string         `db:"content"`
+	Alias   sql.NullString `db:"alias"`
+	Created int64          `db:"created"`
 }
 
 func (_ *Article) SelectAll() *[]Article {
@@ -32,4 +33,25 @@ func (_ *Article) SelectBySlugOrId(slugOrId string) *Article {
 		return nil
 	}
 	return &article
+}
+
+func (_ *Article) InsertOne(article *Article) (int64, error) {
+	result := DB.MustExec("INSERT INTO `article` (title, content, alias, created) VALUES (?, ?, ?, ?)",
+		article.Title, article.Content, article.Alias, article.Created)
+	return result.LastInsertId()
+}
+
+func (_ *Article) UpdateById(article *Article) (int64, error) {
+	result := DB.MustExec("UPDATE `article` SET title = ?, content = ?, alias = ? WHERE id = ?",
+		article.Title, article.Content, article.Alias, article.Id)
+	return result.RowsAffected()
+}
+
+func (_ *Article) DeleteById(id int) bool {
+	result := DB.MustExec("DELETE FROM `article` WHERE id = ?", id)
+	_, err := result.RowsAffected()
+	if nil == err {
+		return true
+	}
+	return false
 }

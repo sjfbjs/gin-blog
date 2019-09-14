@@ -26,7 +26,7 @@
                 <div class="post-title">Blog Posts</div>
                 <ul class="post">
                     {{ range .articles }}
-                        <li><span>{{ .Created | formatAsDate }}</span> » <a href="/post/{{ if .Alias }}{{ .Alias }}{{ else }}{{ .Id }}{{ end }}">{{ .Title }}</a>
+                        <li><span>{{ .Created | formatAsDate }}</span> » <a href="/post/{{ if .Alias.Valid }}{{ .Alias.String }}{{ else }}{{ .Id }}{{ end }}">{{ .Title }}</a>
                         </li>
                     {{ end }}
                 </ul>

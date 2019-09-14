@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"gin-blog/controller"
 	"gin-blog/model"
 	"log"
@@ -8,6 +9,7 @@ import (
 )
 
 func init() {
+	gob.Register(model.User{})
 	model.Load()
 }
 

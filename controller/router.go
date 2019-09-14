@@ -14,7 +14,7 @@ import (
 
 func MapRoutes() *gin.Engine {
 	router := gin.Default()
-	store := cookie.NewStore([]byte("login"))
+	store := cookie.NewStore([]byte("d56b699830e77ba53855679cb1d252da"))
 	router.Use(sessions.Sessions("my_session", store))
 
 	router.SetFuncMap(template.FuncMap{
@@ -39,20 +39,28 @@ func MapRoutes() *gin.Engine {
 			c.String(http.StatusOK, "请先登录！")
 			c.Abort()
 		}
+		c.Next()
 	})
 	{
 		admin.GET("/", dashboard)
 		admin.GET("/edit", editArticle)
 		admin.POST("/article", addArticle)
-		admin.DELETE("/article", deleteArticle)
+		/**
+		 * gin DELETE 的 PostForm() 方法不能解析 content-type: application/x-www-form-urlencoded
+		 * 先使用 PUT 代替 DELETE
+		 * https://github.com/gin-gonic/gin/issues/1755
+		 */
+		admin.PUT("/article", deleteArticle)
 		admin.GET("/article", articleManage)
+		admin.GET("/setting", setting)
+		admin.POST("/setting", updateSetting)
 	}
 
 	return router
 }
 
-func formatAsDate(timestamp uint) string {
-	t := time.Unix(int64(timestamp), 0)
+func formatAsDate(timestamp int64) string {
+	t := time.Unix(timestamp, 0)
 	year, month, day := t.Date()
 	return fmt.Sprintf("%d/%02d/%02d", year, month, day)
 }

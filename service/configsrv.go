@@ -15,3 +15,19 @@ func (_ *configService) GetTitle() string {
 func (_ *configService) GetKeyword() string {
 	return configDAO.SelectKeyword()
 }
+
+func (_ *configService) UpdateTitle(title string) bool {
+	_, err := configDAO.UpdateTitle(title)
+	if nil == err {
+		return true
+	}
+	return false
+}
+
+func (_ *configService) UpdateKeyword(keywords string) bool {
+	_, err := configDAO.UpdateKeywords(keywords)
+	if nil == err {
+		return true
+	}
+	return false
+}

@@ -27,3 +27,13 @@ func (_ *Config) SelectKeyword() string {
 	}
 	return keyword.Value
 }
+
+func (_ *Config) UpdateTitle(title string) (int64, error) {
+	result := DB.MustExec("UPDATE `config` SET value = ? WHERE name = \"title\"", title)
+	return result.RowsAffected()
+}
+
+func (_ *Config) UpdateKeywords(keywords string) (int64, error) {
+	result := DB.MustExec("UPDATE `config` SET value = ? WHERE name = \"keywords\"", keywords)
+	return result.RowsAffected()
+}

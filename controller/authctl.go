@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"fmt"
 	"gin-blog/config"
 	"gin-blog/service"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -23,8 +25,12 @@ func loginAPI(c *gin.Context) {
 		})
 	} else {
 		session := sessions.Default(c)
+		fmt.Println("user: ", user)
 		session.Set(config.LOGIN_SESSION, &user)
-		session.Save()
+		err := session.Save()
+		if nil != err {
+			log.Println("session save err: ", err)
+		}
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"msg":     "登录成功",

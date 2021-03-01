@@ -16,7 +16,7 @@ func init() {
 func main() {
 	router := controller.MapRoutes()
 	server := &http.Server{
-		Addr:    "0.0.0.0:8080",
+		Addr:    "0.0.0.0:9898",
 		Handler: router,
 	}
 	if err := server.ListenAndServe(); nil != err {

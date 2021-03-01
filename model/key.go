@@ -36,13 +36,13 @@ func (_ *Key) InsertOne(key *Key) (int64, error) {
 	return result.LastInsertId()
 }
 
-func (_ *Key) UpdateById(key *Key) (int64, error) {
+func (_ *Key) UpdateKey(key *Key) (int64, error) {
 	result := DB.MustExec("UPDATE `keymanage` SET keycontent = ? WHERE ip = ?",
 		key.Key, key.Ip)
 	return result.RowsAffected()
 }
 
-func (_ *Key) DeleteById(ip string) bool {
+func (_ *Key) DeleteByIp(ip string) bool {
 	result := DB.MustExec("DELETE FROM `keymanage` WHERE ip = ?", ip)
 	_, err := result.RowsAffected()
 	if nil == err {

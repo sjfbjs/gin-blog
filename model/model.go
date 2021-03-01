@@ -9,7 +9,7 @@ import (
 var DB *sqlx.DB
 
 func Load() {
-	db, err := sqlx.Open("mysql", "root:root@tcp(192.168.1.145:3306)/testgo")
+	db, err := sqlx.Open("mysql", "root:root@tcp(192.168.1.145:3306)/keys")
 	if nil != err {
 		log.Fatalln(err)
 	}

@@ -32,8 +32,10 @@ func (_ *keyService) SaveKey(param *param.KeyParam) bool {
 		Ip:  param.Ip,
 		Key: param.Key,
 	}
+
 	var err error
-	if "" != param.Ip {
+	hiskey := keyDAO.SelectByIp(key.Ip)
+	if hiskey != nil {
 		_, err = keyDAO.UpdateKey(&key)
 	} else {
 		_, err = keyDAO.InsertOne(&key)

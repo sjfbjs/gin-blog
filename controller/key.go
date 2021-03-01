@@ -18,15 +18,14 @@ func editKey(c *gin.Context) {
 
 	Key := service.Key.GetByIp(ip)
 	c.HTML(http.StatusOK, "editkey.html", gin.H{
-		"ip":  ip,
-		"key": Key.Key,
+		"Ip":  Key.Ip,
+		"Key": Key.Key,
 	})
 
 }
 
 func addKey(c *gin.Context) {
 	form := param.KeyParam{}
-	fmt.Println(form)
 	if err := c.ShouldBind(&form); nil != err {
 		log.Println("KeyParam binding err: ", err.Error())
 		c.JSON(http.StatusOK, gin.H{
@@ -35,6 +34,7 @@ func addKey(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Println(form)
 	saved := service.Key.SaveKey(&form)
 	if saved {
 		c.JSON(http.StatusOK, gin.H{

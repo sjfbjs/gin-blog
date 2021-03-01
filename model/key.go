@@ -2,6 +2,7 @@ package model
 
 import (
 	//"database/sql"
+	"fmt"
 	"log"
 )
 
@@ -31,6 +32,7 @@ func (_ *Key) SelectByIp(ip string) *Key {
 }
 
 func (_ *Key) InsertOne(key *Key) (int64, error) {
+	fmt.Println("key:", key)
 	result := DB.MustExec("INSERT INTO `keymanage` (ip,keycontent) VALUES (?, ?)",
 		key.Ip, key.Key)
 	return result.LastInsertId()

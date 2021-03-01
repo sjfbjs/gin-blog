@@ -52,6 +52,17 @@ func MapRoutes() *gin.Engine {
 		 */
 		admin.PUT("/article", deleteArticle)
 		admin.GET("/article", articleManage)
+
+		admin.GET("/keyedit", editKey)
+		admin.POST("/key", addKey)
+		/**
+		 * gin DELETE 的 PostForm() 方法不能解析 content-type: application/x-www-form-urlencoded
+		 * 先使用 PUT 代替 DELETE
+		 * https://github.com/gin-gonic/gin/issues/1755
+		 */
+		admin.PUT("/key", deleteKey)
+		admin.GET("/key", keyManage)
+
 		admin.GET("/setting", setting)
 		admin.POST("/setting", updateSetting)
 	}

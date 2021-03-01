@@ -1,10 +1,11 @@
+{{ $null := "null" }}
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>仪表盘 - 后台管理</title>
+    <title>编辑私钥 - 后台管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/admin-lte/2.4.10/css/skins/skin-blue.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.css">
     <link rel="stylesheet" href="../../static/admin/css/style.css">
 </head>
 
@@ -50,9 +52,6 @@
 
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
-                    <a href="/admin"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
-                </li>
                 <li>
                     <a href="/admin/key"><i class="fa fa-list"></i><span>秘钥管理</span></a>
                 </li>
@@ -66,22 +65,39 @@
         </section>
     </aside>
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                仪表盘
-                <small>TODO</small>
-            </h1>
-        </section>
-
         <section class="content container-fluid">
 
-
-            <div class="row">
-                <div class="col-lg-12">
-
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>编辑私钥</b></h3>
                 </div>
-            </div>
 
+                <form method="post" id="loginForm" onsubmit="return checkForm()">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">ip</span>
+                                    <input type="text" class="form-control" name="Ip" placeholder="请输入ip" required>
+
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">key</span>
+                                    <textarea id="markdown" name="Key" rows="3"  style="width: 100%;overflow: auto;word-break: break-all; " required></textarea>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+
+
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right">提交</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
 
         </section>
     </div>
@@ -96,6 +112,37 @@
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.staticfile.org/admin-lte/2.4.10/js/adminlte.min.js"></script>
+
+<script src="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.js"></script>
+<script>
+    $(function () {
+        $('input[name="Ip"]').val('{{.Ip}}')
+        $('textarea[name="Key"]').val('{{.Key}}')
+    })
+
+    function checkForm() {
+        console.log($('input[name="Ip"]').val())
+        console.log($('textarea[name="Key"]').val())
+
+        $.post({
+            url: '/admin/key',
+            data: {
+                Ip: $('input[name="Ip"]').val() ,
+                Key: $('textarea[name="Key"]').val(),
+
+
+            },
+            success: function (result) {
+                if (result && result.success) {
+                    alert('私钥新增成功')
+                } else {
+                    alert(result.msg)
+                }
+            }
+        })
+        return false
+    }
+</script>
 
 </body>
 

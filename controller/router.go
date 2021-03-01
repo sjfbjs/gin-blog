@@ -26,9 +26,9 @@ func MapRoutes() *gin.Engine {
 	router.LoadHTMLFiles(templates...)
 	router.Static("/static", "template/static")
 
-	router.GET("/", index)
+	//router.GET("/", index)
 	router.GET("/post/:slug", post)
-	router.GET("/login", login)
+	router.GET("/", login)
 	router.POST("/login", loginAPI)
 	router.GET("/logout", logout)
 

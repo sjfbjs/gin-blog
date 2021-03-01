@@ -11,7 +11,14 @@ import (
 )
 
 func login(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.html", nil)
+	session := sessions.Default(c)
+	user := session.Get(config.LOGIN_SESSION)
+	if user == nil {
+		c.HTML(http.StatusOK, "login.html", nil)
+	} else {
+		c.HTML(http.StatusOK, "dashboard.html", nil)
+	}
+
 }
 
 func loginAPI(c *gin.Context) {

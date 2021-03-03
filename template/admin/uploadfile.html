@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>编辑私钥 - 后台管理</title>
+    <title>文件 - 后台管理</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -78,13 +78,13 @@
                     <h3 class="box-title"><b>文件上传展示及搜索</b></h3>
                 </div>
 
-                <form method="post" id="UploadForm" onsubmit="upload()"  enctype="multipart/form-data">
+                <form  id="UploadForm"   enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="site-upload">
                             <div id="upload">
                                     <input type="file" id="file"  name="file"  >
                                     <br \>
-                                    <button type="submit" class="btn btn-primary pull-left">上传</button>
+                                    <button type="submit" onclick="upload()"  class="btn btn-primary pull-left">上传</button>
                             </div>
 
                         </div>
@@ -136,12 +136,13 @@
 
 
     function upload() {
-        var formData = new FormData(document.querySelector('#file-input').form);
+        // var formData = new FormData(document.querySelector('#file-input').form);
         $.post({
             url: '/admin/upload',
-            data: formData,
+            // data: formData,
             success: function (result) {
                 if (result && result.success) {
+                    console.log(result);
                     alert('文件上传成功')
                 } else {
                     alert(result.msg)

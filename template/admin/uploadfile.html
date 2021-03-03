@@ -59,7 +59,7 @@
                     <a href="/admin/keyedit"><i class="fa fa-list"></i><span>秘钥新增</span></a>
                 </li>
                 <li>
-                    <a href="/admin/uploadfile"><i class="fa fa-list"></i><span>采集文件上传</span></a>
+                    <a href="/admin/upload"><i class="fa fa-list"></i><span>采集文件上传</span></a>
                 </li>
                 <li>
                     <a href="/admin/search"><i class="fa fa-list"></i><span>搜索展示</span></a>
@@ -75,34 +75,23 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><b>私钥编辑</b></h3>
+                    <h3 class="box-title"><b>文件上传展示及搜索</b></h3>
                 </div>
 
-                <form method="post" id="loginForm" onsubmit="return checkForm()">
+                <form method="post" id="UploadForm" onsubmit="return upload()"  enctype="multipart/form-data">
                     <div class="box-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                    <span class="input-group-addon">ip</span>
-                                    <input type="text" class="form-control" name="Ip" placeholder="请输入ip" required>
-
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">key</span>
-                                    <textarea id="markdown" name="Key" rows="3"  style="width: 100%;overflow: auto;word-break: break-all; " required></textarea>
-                                </div>
-                                <br/>
+                        <div class="site-upload">
+                            <div id="upload">
+                                    <input type="file" id="file"  name="file"  >
+                                    <button type="submit" class="btn btn-primary pull-right">上传</button>
                             </div>
+
                         </div>
-
-
-
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">提交</button>
-                        </div>
-
                     </div>
                 </form>
+                <script>
+
+                </script>
             </div>
 
         </section>
@@ -120,28 +109,48 @@
 <script src="https://cdn.staticfile.org/admin-lte/2.4.10/js/adminlte.min.js"></script>
 
 <script src="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.js"></script>
+{{/*.site-search{*/}}
+{{/*width:25%;*/}}
+{{/*float:right;*/}}
+{{/*width:250px;*/}}
+{{/*height:50px;*/}}
+{{/*}*/}}
+{{/*#search{*/}}
+{{/*position:relative;*/}}
+{{/*margin-top:15px;*/}}
+{{/*}*/}}
+{{/*#search input{*/}}
+{{/*padding-right:30px;*/}}
+{{/*}*/}}
+{{/*#search button{*/}}
+{{/*position:absolute;*/}}
+{{/*right:4px;*/}}
+{{/*top:2px;*/}}
+{{/*border:none;*/}}
+{{/*padding:0;*/}}
+{{/*width:24px;*/}}
+{{/*height:24px;*/}}
+{{/*background:url("static/images/search.png") no-repeat scroll right center transparent;*/}}
+{{/*direction:ltr;*/}}
+{{/*text-indent:-9999em;*/}}
+{{/*}*/}}
+
 <script>
+
     // 赋值
-    $(function () {
-        $('input[name="Ip"]').val('{{.Ip}}')
-        $('textarea[name="Key"]').val('{{.Key}}')
-    })
+    {{/*$(function () {*/}}
+        {{/*$('input[name="Ip"]').val('{{.Ip}}')*/}}
+        {{/*$('textarea[name="Key"]').val('{{.Key}}')*/}}
+    {{/*})*/}}
 
-    function checkForm() {
-        console.log($('input[name="Ip"]').val())
-        console.log($('textarea[name="Key"]').val())
-
+    function upload() {
+        var formData = new FormData(document.querySelector('#file-input').form);
         $.post({
             url: '/admin/key',
-            data: {
-                Ip: $('input[name="Ip"]').val() ,
-                Key: $('textarea[name="Key"]').val(),
-
-
-            },
+            data: formData,
             success: function (result) {
                 if (result && result.success) {
-                    alert('私钥新增成功')
+                    alert('文件上传成功')
                 } else {
                     alert(result.msg)
                 }

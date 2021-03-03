@@ -29,5 +29,5 @@ func EsConnect() {
 		fmt.Println("es client success")
 	}
 	EsClient = client
-	defer client.Stop()
+	//defer client.Stop()
 }

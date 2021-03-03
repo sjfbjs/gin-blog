@@ -18,5 +18,5 @@ func Load() {
 	// 设置闲置的连接数。
 	db.SetMaxIdleConns(100)
 	DB = db
-	defer db.Close()
+	//defer db.Close()
 }

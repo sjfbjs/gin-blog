@@ -83,7 +83,8 @@
                         <div class="site-upload">
                             <div id="upload">
                                     <input type="file" id="file"  name="file"  >
-                                    <button type="submit" class="btn btn-primary pull-right">上传</button>
+                                    <br \>
+                                    <button type="submit" class="btn btn-primary pull-left">上传</button>
                             </div>
 
                         </div>
@@ -93,7 +94,27 @@
 
                 </script>
             </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>文件名</th>
+                        <th>上传时间</th>
+                        <!--<th>状态</th>-->
 
+                    </tr>
+
+                {{ range .Uploads }}
+                    <tr>
+                        <td>{{ .Filename }}</td>
+                        <td>{{ .Created }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="/admin/upload?filename={{.Filename}}">删除</a>
+                        </td>
+                    </tr>
+                {{ end }}
+
+                </table>
+            </div>
         </section>
     </div>
 
@@ -109,31 +130,7 @@
 <script src="https://cdn.staticfile.org/admin-lte/2.4.10/js/adminlte.min.js"></script>
 
 <script src="https://cdn.staticfile.org/simplemde/1.11.2/simplemde.min.js"></script>
-{{/*.site-search{*/}}
-{{/*width:25%;*/}}
-{{/*float:right;*/}}
-{{/*width:250px;*/}}
-{{/*height:50px;*/}}
-{{/*}*/}}
-{{/*#search{*/}}
-{{/*position:relative;*/}}
-{{/*margin-top:15px;*/}}
-{{/*}*/}}
-{{/*#search input{*/}}
-{{/*padding-right:30px;*/}}
-{{/*}*/}}
-{{/*#search button{*/}}
-{{/*position:absolute;*/}}
-{{/*right:4px;*/}}
-{{/*top:2px;*/}}
-{{/*border:none;*/}}
-{{/*padding:0;*/}}
-{{/*width:24px;*/}}
-{{/*height:24px;*/}}
-{{/*background:url("static/images/search.png") no-repeat scroll right center transparent;*/}}
-{{/*direction:ltr;*/}}
-{{/*text-indent:-9999em;*/}}
-{{/*}*/}}
+
 
 <script>
 

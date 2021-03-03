@@ -136,20 +136,19 @@
 
 
     function upload() {
-        var s = $('#file')[0].files[0] ;//$(this)[0].files[0]
-        var formData = new FormData();
-        console.log(s);
-        formData.append("file", s);
+        var file = $('#file')[0].files[0];
+        var formData = new FormData($('#UploadForm')[0]);
+        formData.append('file', file);
+        console.log(formData.get('file'))
+        // console.log(s);
         console.log(formData);
+        console.log(formData.getAll('file'));
         $.ajax({
             url: '/admin/upload',
             data: formData,
             type: "POST",
-            // contentType: false,
-            processData: false,
-            // dataType: "json",
-            // mimeType: "multipart/form-data",
-            contentType: "multipart/form-data",
+            processData: false,    //不需要对数据做任何预处理
+            contentType: false,    //不设置数据格式
             success: function (result) {
                 if (result && result.success) {
                     console.log(result);
@@ -160,6 +159,18 @@
             }
         })
         return false
+        // var xhr=new XMLHttpRequest();
+        // xhr.open("post","/admin/upload");
+        // xhr.send(formData);
+        // xhr.onload=function(){
+        //     if(xhr.status==200){
+        //         alert('文件上传成功')
+        //     }
+        //     else{
+        //         alert('文件上传失败')
+        //     }
+        //
+        // }
     }
     function deleteFile(Filename) {
         if (!confirm("确认删除？")) {

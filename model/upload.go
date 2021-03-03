@@ -15,7 +15,7 @@ func (_ *Upload) SelectAll() *[]Upload {
 	ups := []Upload{}
 	err := DB.Select(&ups, "SELECT * FROM `upload`")
 	if nil != err {
-		log.Println("get Upload failed: ", err.Error())
+		log.Println("获取所有的文件名失败: ", err.Error())
 		return nil
 	}
 	return &ups
@@ -25,7 +25,7 @@ func (_ *Upload) SelectByFilename(fname string) *Upload {
 	up := Upload{}
 	err := DB.Get(&up, "SELECT * FROM `upload` WHERE filename = ?", fname)
 	if nil != err {
-		log.Println("get Upload failed: ", err.Error())
+		log.Println("查找文件名失败: ", err.Error())
 		return nil
 	}
 	return &up

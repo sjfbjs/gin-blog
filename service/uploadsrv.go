@@ -24,8 +24,8 @@ func (_ *uploadservice) SaveFile(upload *model.Upload) bool {
 	//	Created: param.Created,
 	//}
 	var err error
-	hiskey := uploadDAO.SelectByFilename(upload.Filename)
-	if hiskey != nil {
+	hisup := uploadDAO.SelectByFilename(upload.Filename)
+	if hisup != nil {
 		return false
 	} else {
 		_, err = uploadDAO.InsertOne(upload)

@@ -23,7 +23,10 @@ func EsConnect() {
 	client, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(host))
 	if err != nil {
 		panic(err)
-		fmt.Println("client error")
+		fmt.Println("es client error")
+	} else {
+
+		fmt.Println("es client success")
 	}
 	EsClient = client
 }

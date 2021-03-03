@@ -11,6 +11,8 @@ import (
 func init() {
 	gob.Register(model.User{})
 	model.Load()
+	//初始化Es连接
+	model.EsConnect()
 }
 
 func main() {

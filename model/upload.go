@@ -13,7 +13,7 @@ type Upload struct {
 
 func (_ *Upload) SelectAll() *[]Upload {
 	ups := []Upload{}
-	err := DB.Select(&ups, "SELECT * FROM `Uploadmanage`")
+	err := DB.Select(&ups, "SELECT * FROM `upload`")
 	if nil != err {
 		log.Println("get Upload failed: ", err.Error())
 		return nil
@@ -33,7 +33,7 @@ func (_ *Upload) SelectByFilename(fname string) *Upload {
 
 func (_ *Upload) InsertOne(Upload *Upload) (int64, error) {
 	fmt.Println("Upload:", Upload)
-	result := DB.MustExec("INSERT INTO `Uploadmanage` (filename) VALUES (?)",
+	result := DB.MustExec("INSERT INTO `upload` (filename) VALUES (?)",
 		Upload.Filename)
 	return result.LastInsertId()
 }

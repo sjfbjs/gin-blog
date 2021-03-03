@@ -11,7 +11,9 @@ import (
 
 func uploadFile(c *gin.Context) {
 	file, header, err := c.Request.FormFile("file")
+
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"success": false, "msg": "文件上传失败"})
 		return
 	}

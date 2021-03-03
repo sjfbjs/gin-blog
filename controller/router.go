@@ -63,6 +63,11 @@ func MapRoutes() *gin.Engine {
 		admin.PUT("/key", deleteKey)
 		admin.GET("/key", keyManage)
 
+		admin.GET("/upload", FileManage)
+		admin.PUT("/upload", deleteFile)
+		admin.POST("/upload", uploadFile)
+		//admin.GET("/upload",)
+
 		admin.GET("/setting", setting)
 		admin.POST("/setting", updateSetting)
 	}

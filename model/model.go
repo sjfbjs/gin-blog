@@ -16,7 +16,7 @@ func Load() {
 	// 设置最大打开的连接数，默认值为0表示不限制。
 	db.SetMaxOpenConns(2000)
 	// 设置闲置的连接数。
-	db.SetMaxIdleConns(1000)
+	db.SetMaxIdleConns(100)
 	DB = db
 	defer db.Close()
 }
